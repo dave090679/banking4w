@@ -5,8 +5,12 @@
 import appModuleHandler
 from config import conf
 from NVDAObjects.IAccessible import IAccessible
-from NVDAObjects.UIA import ListItem
+from NVDAObjects.UIA import ListItem, UIA
 import controlTypes
+class topbankingtab(UIA):
+	def _get_name(self):
+		return self.firstChild.next.name
+
 class topbankingcell(IAccessible):
 	def _get_name(self):
 		linenumbers = conf["documentFormatting"]["reportLineNumber"]
@@ -22,3 +26,6 @@ class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self, obj, clslist):
 		if obj.role == controlTypes.ROLE_TABLECELL:
 				clslist.insert(0, topbankingcell)
+		elif obj.role == controlTypes.ROLE_TAB:
+			clslist.insert(0,topbankingtab)
+			
