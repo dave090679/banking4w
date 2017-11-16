@@ -28,4 +28,3 @@ class AppModule(appModuleHandler.AppModule):
 				clslist.insert(0, topbankingcell)
 		elif obj.role == controlTypes.ROLE_TAB and isinstance(obj, UIA):
 			clslist.insert(0,topbankingtab)
-
