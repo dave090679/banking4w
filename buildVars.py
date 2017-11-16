@@ -20,7 +20,7 @@ addon_info = {
 	"addon_description" : _("""nvda add-on for banking4w from subsemblya.com
 	"""),
 	# version
-	"addon_version" : "0.2",
+	"addon_version" : "0.3",
 	# Author(s)
 	"addon_author" : u"David Parduhn <xkill85@gmx.net>",
 	# URL for the add-on documentation support
