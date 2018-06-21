@@ -22,12 +22,15 @@ class topbankingtab(UIA):
 class topbankingcell(IAccessible):
 	def _get_name(self):
 		linenumbers = conf["documentFormatting"]["reportLineNumber"]
+		columnheaders = conf["documentFormatting"]["reportTableHeaders"]
 		origname = self.IAccessibleObject.accName()
 		linenumber = self.parent.IAccessibleObject.accName()
-		if linenumbers == True:
-			ret = origname
-		else:
-			ret = origname.replace(linenumber,u'')
+		remainingname = origname.replace(linenumber,u'')
+		ret = origname
+		if linenumbers == False:
+			ret = ret.replace(linenumber,u'')
+		if columnheaders == False:
+			ret = ret.replace(remainingname,u'')
 		return ret
 
 class AppModule(appModuleHandler.AppModule):
