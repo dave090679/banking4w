@@ -7,17 +7,17 @@ from config import conf
 from NVDAObjects.IAccessible import IAccessible
 from NVDAObjects.UIA import ListItem, UIA
 import controlTypes
-class topbankingcolumnselectionitem(ListItem):
-	def _get_name(self):
-		return self.children[1].name
-	def _get_states(self):
-		return self.children[0].states
-	def _set_states(self, new_states):
-		self.states = new_states
+#class topbankingcolumnselectionitem(ListItem):
+#	def _get_name(self):
+#		return self.children[1].name
+#	def _get_states(self):
+#		return self.children[0].states
+#	def _set_states(self, new_states):
+#		self.states = new_states
 
-class topbankingtab(UIA):
-	def _get_name(self):
-		return self.firstChild.next.name
+#class topbankingtab(UIA):
+#	def _get_name(self):
+#		return self.firstChild.next.name
 
 class topbankingcell(IAccessible):
 	def _get_name(self):
@@ -37,8 +37,8 @@ class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self, obj, clslist):
 		if obj.role == controlTypes.ROLE_TABLECELL:
 				clslist.insert(0, topbankingcell)
-		elif obj.role == controlTypes.ROLE_TAB and isinstance(obj, UIA):
-			clslist.insert(0,topbankingtab)
-		elif isinstance(obj, UIA) and obj.name == 'Subsembly.Banking.TColumn':
-			clslist.insert(0,topbankingcolumnselectionitem)
+#		elif obj.role == controlTypes.ROLE_TAB and isinstance(obj, UIA):
+#			clslist.insert(0,topbankingtab)
+#		elif isinstance(obj, UIA) and obj.UIAElement.CurrentClassName == 'ListBoxItem':
+#			clslist.insert(0,topbankingcolumnselectionitem)
 
