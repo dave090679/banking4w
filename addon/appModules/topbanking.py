@@ -7,9 +7,10 @@ from config import conf
 from NVDAObjects.IAccessible import IAccessible
 from NVDAObjects.UIA import ListItem, UIA
 import controlTypes
-#class topbankingcolumnselectionitem(ListItem):
-#	def _get_name(self):
-#		return self.children[1].name
+class topbankingitem(ListItem):
+	def _get_name(self):
+		return self.children[1].name + "; " + self.children[2].name
+
 #	def _get_states(self):
 #		return self.children[0].states
 #	def _set_states(self, new_states):
@@ -39,6 +40,6 @@ class AppModule(appModuleHandler.AppModule):
 				clslist.insert(0, topbankingcell)
 #		elif obj.role == controlTypes.ROLE_TAB and isinstance(obj, UIA):
 #			clslist.insert(0,topbankingtab)
-#		elif isinstance(obj, UIA) and obj.UIAElement.CurrentClassName == 'ListBoxItem':
-#			clslist.insert(0,topbankingcolumnselectionitem)
+		elif isinstance(obj, UIA) and obj.UIAElement.CurrentName == 'Subsembly.BankingForms.PayeePickerItem':
+			clslist.insert(0,topbankingitem)
 
