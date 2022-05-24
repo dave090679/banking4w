@@ -20,23 +20,30 @@ class topbankingitem(ListItem):
 #	def _get_name(self):
 #		return self.firstChild.next.name
 
-class topbankingcell(IAccessible):
+class topbankingcell(UIA):
 	def _get_name(self):
 		linenumbers = conf["documentFormatting"]["reportLineNumber"]
 		columnheaders = conf["documentFormatting"]["reportTableHeaders"]
-		origname = self.IAccessibleObject.accName()
-		linenumber = self.parent.IAccessibleObject.accName()
-		remainingname = origname.replace(linenumber,u'')
-		ret = origname
-		if linenumbers == False:
+		ret = self.UIAElement.CurrentName
+		linenumber = self.parent.name
+		if not linenumbers:
 			ret = ret.replace(linenumber,u'')
-		if columnheaders == False:
-			ret = ret.replace(remainingname,u'')
+		if not columnheaders:
+			ret = ret.replace(self.columnHeaderText,"")
 		return ret
 
 class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self, obj, clslist):
-		if obj.role == controlTypes.ROLE_TABLECELL:
+		if isinstance(obj,UIA):
+			try:
+				tabelle = obj.table
+			except:
+				tabelle = None
+			try:
+				zeilennummer = obj.rowNumber
+			except:
+				zeilennummer = -1
+			if tabelle and zeilennummer != -1:
 				clslist.insert(0, topbankingcell)
 #		elif obj.role == controlTypes.ROLE_TAB and isinstance(obj, UIA):
 #			clslist.insert(0,topbankingtab)
